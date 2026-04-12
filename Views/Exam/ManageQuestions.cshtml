@@ -1,0 +1,195 @@
+@model IEnumerable<ExamMSAppMVC.Models.Entities.Question>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manage Questions - ExamMS</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
+    
+    <style>
+        :root {
+            --bg-color: #f4f7fe;
+            --sidebar-width: 260px;
+            --primary-blue: #4361ee;
+            --text-dark: #2d3748;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            display: flex;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: #fff;
+            height: 100vh;
+            position: fixed;
+            border-right: 1px solid #e2e8f0;
+            padding: 20px;
+        }
+
+        .sidebar-brand {
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: var(--primary-blue);
+            margin-bottom: 30px;
+            display: block;
+            text-decoration: none;
+        }
+
+        .nav-link {
+            color: #718096;
+            padding: 12px 15px;
+            border-radius: 12px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .nav-link i { margin-right: 12px; font-size: 1.2rem; }
+        
+        .nav-link.active {
+            background: #fff;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05);
+            color: var(--primary-blue);
+        }
+
+        /* Content Area */
+        .main-wrapper {
+            margin-left: var(--sidebar-width);
+            width: calc(100% - var(--sidebar-width));
+            padding: 40px;
+        }
+
+        .content-card {
+            background: white;
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 20px 27px 0 rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+
+        .table thead th {
+            background-color: transparent;
+            color: #a0aec0;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            padding: 1.5rem;
+            border-bottom: 1px solid #f1f1f1;
+        }
+
+        .table tbody td {
+            padding: 1.2rem 1.5rem;
+            vertical-align: middle;
+            border-top: 1px solid #f1f1f1;
+        }
+
+        /* Modern Checkbox */
+        .form-check-input {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #cbd5e0;
+            cursor: pointer;
+        }
+
+        .form-check-input:checked {
+            background-color: var(--primary-blue);
+            border-color: var(--primary-blue);
+        }
+
+        .btn-submit {
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 10px 25px;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .btn-submit:hover {
+            background: #3651d1;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(67, 97, 238, 0.3);
+        }
+
+        .btn-back {
+            background: #f1f5f9;
+            color: #64748b;
+            border-radius: 12px;
+            padding: 10px 25px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <a href="#" class="sidebar-brand">School Management</a>
+        <nav>
+            <a asp-controller="Admin" asp-action="Index" class="nav-link"><i class="bi bi-grid-fill"></i> Dashboard</a>
+            <a asp-controller="Admin" asp-action="Courses" class="nav-link"><i class="bi bi-person-badge-fill"></i> Courses</a>
+            <a asp-controller="Exam" asp-action="Index" class="nav-link active"><i class="bi bi-calendar-event-fill"></i> Exam</a>
+        </nav>
+    </div>
+
+    <div class="main-wrapper">
+        <div class="mb-4">
+            <h4 class="fw-bold mb-0">Select Questions</h4>
+            <p class="text-muted">Assembling paper for: <span class="text-primary fw-bold">@ViewBag.ExamTitle</span></p>
+        </div>
+
+        <div class="card content-card">
+            <div class="card-body p-0">
+                <form asp-action="SaveSelectedQuestions" method="post">
+                    <input type="hidden" name="examId" value="@ViewBag.ExamId" />
+                    
+                    <table class="table mb-0">
+                        <thead>
+                            <tr>
+                                <th style="width: 60px;" class="ps-4">Select</th>
+                                <th>Question Content</th>
+                                <th class="text-center">Marks</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var q in Model)
+                            {
+                                <tr>
+                                    <td class="ps-4">
+                                        <input type="checkbox" name="selectedQuestions" value="@q.Id" class="form-check-input" />
+                                    </td>
+                                    <td>
+                                        <span class="fw-bold text-dark">@q.Text</span>
+                                    </td>
+                                    <td class="text-center">
+                                        <span class="badge bg-light text-dark border p-2 px-3" style="border-radius: 8px;">@q.Marks pts</span>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                    <div class="p-4 border-top d-flex gap-3">
+                        <button type="submit" class="btn-submit">Add Selected to Exam</button>
+                        <a asp-action="Index" class="btn-back">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

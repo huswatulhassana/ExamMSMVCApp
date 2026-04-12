@@ -1,0 +1,161 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    /* This line removes the default header and footer */
+    Layout = null; 
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EMS - Home</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <style>
+        /* 1. PORTAL DNA COLOR PALETTE */
+        :root {
+            --portal-blue: #2B59FF;
+            --portal-green: #2ECC71;
+            --deep-slate: #0F172A;
+            --glass-white: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            /* Matches the Login Background exactly */
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(43, 89, 255, 0.7)), 
+                        url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: 'Poppins', sans-serif;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden; /* Prevents scrolling on the home splash */
+        }
+
+        /* 2. GLASSMORPHISM HERO SECTION */
+        .hero-section {
+            background: var(--glass-white); 
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 80px 60px;
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.4);
+            color: white;
+            animation: portalFadeIn 1s ease-out;
+        }
+
+        @@keyframes portalFadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .display-3 {
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        /* Gradient Text like the Login buttons */
+        .text-accent {
+            background: linear-gradient(135deg, #FFF, var(--portal-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 900;
+        }
+
+        /* 3. BUTTONS: SYNCED WITH LOGIN ACTION */
+        .btn-portal {
+            padding: 16px 45px;
+            border-radius: 15px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            font-size: 0.9rem;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary-portal {
+            background: linear-gradient(135deg, var(--portal-blue), var(--portal-green));
+            border: none;
+            color: white;
+            box-shadow: 0 10px 30px rgba(43, 89, 255, 0.3);
+        }
+
+        .btn-primary-portal:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(46, 204, 113, 0.4);
+            color: white;
+        }
+
+        .btn-outline-portal {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+        }
+
+        .btn-outline-portal:hover {
+            background: white;
+            color: var(--deep-slate);
+            transform: translateY(-5px);
+        }
+
+        .welcome-badge {
+            background: rgba(46, 204, 113, 0.2);
+            color: var(--portal-green);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            display: inline-block;
+            margin-bottom: 20px;
+            border: 1px solid rgba(46, 204, 113, 0.3);
+        }
+
+        .sub-text {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-10 text-center">
+            <div class="hero-section">
+                <span class="welcome-badge">SYSTEM ONLINE</span>
+                
+                <h1 class="display-3 mb-3">
+                    Exam <span class="text-accent">Management</span> System
+                </h1>
+                
+                <p class="sub-text mb-5 mx-auto" style="max-width: 600px;">
+                    Experience a new standard in academic integrity. A secure, seamless, and high-performance digital testing environment.
+                </p>
+                
+                <div class="d-flex flex-column flex-sm-row justify-content-center gap-4">
+                    <a asp-controller="Account" asp-action="Register" class="btn btn-portal btn-primary-portal">
+                        <i class="fas fa-rocket me-2"></i>Create Account
+                    </a>
+                    <a asp-controller="Account" asp-action="Login" class="btn btn-portal btn-outline-portal">
+                        <i class="fas fa-lock me-2"></i>Access Portal
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

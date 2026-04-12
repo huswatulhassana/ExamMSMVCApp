@@ -1,0 +1,205 @@
+@{
+    Layout = null;
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ExamMS</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
+    <style>
+        :root { 
+            --soft-blue: #f4f7fe; 
+            --sidebar-bg: #ffffff; 
+            --primary-blue: #4361ee; 
+            --text-muted: #67748e;
+        }
+        
+        body { background-color: var(--soft-blue); font-family: 'Segoe UI', sans-serif; overflow-x: hidden; margin: 0; }
+        
+        /* Sidebar */
+        .sidebar { 
+            background: var(--sidebar-bg); 
+            min-height: 100vh; 
+            border-right: 1px solid #e0e0e0; 
+            padding: 20px; 
+            position: fixed; 
+            width: 260px; 
+            z-index: 1000;
+        }
+        
+        .sidebar-brand {
+            font-weight: 800;
+            color: var(--primary-blue);
+            font-size: 1.2rem;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 40px;
+            padding-left: 15px;
+        }
+
+        .nav-link { 
+            color: var(--text-muted); 
+            border-radius: 12px; 
+            margin-bottom: 8px; 
+            padding: 12px 15px; 
+            transition: 0.3s; 
+            display: flex; 
+            align-items: center; 
+            text-decoration: none; 
+            font-weight: 500;
+        }
+        
+        .nav-link i { margin-right: 12px; font-size: 1.2rem; }
+        
+        .nav-link:hover, .nav-link.active { 
+            background: #fff; 
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.08); 
+            color: var(--primary-blue); 
+        }
+
+        /* Content */
+        .main-content { margin-left: 260px; padding: 40px; }
+        
+        .stat-card { 
+            border: none; 
+            border-radius: 20px; 
+            transition: 0.3s; 
+            background: #fff;
+        }
+        
+        .stat-card:hover { transform: translateY(-5px); box-shadow: 0 20px 27px 0 rgba(0,0,0,0.05) !important; }
+        
+        .icon-shape { 
+            width: 48px; 
+            height: 48px; 
+            color: white; 
+            border-radius: 12px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 1.5rem; 
+            margin-bottom: 20px; 
+        }
+
+        .btn-custom { border-radius: 12px; font-weight: 600; padding: 10px 20px; transition: 0.2s; }
+        
+        .bg-gradient-primary { background: linear-gradient(310deg, #2152ff, #21d4fd); }
+        .bg-gradient-success { background: linear-gradient(310deg, #17ad37, #98ec2d); }
+        .bg-gradient-danger { background: linear-gradient(310deg, #ea0606, #ff667c); }
+        .bg-gradient-info { background: linear-gradient(310deg, #21d4fd, #2152ff); }
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+    <a href="#" class="sidebar-brand">EXAM MS</a>
+    <nav class="nav flex-column">
+        <a class="nav-link active" asp-controller="Admin" asp-action="Index">
+            <i class="bi bi-grid-fill"></i> Dashboard
+        </a>
+        <a class="nav-link" asp-controller="Admin" asp-action="Courses">
+            <i class="bi bi-book-half"></i> Course Catalog
+        </a>
+        <a class="nav-link" asp-controller="Question" asp-action="Index">
+            <i class="bi bi-database-fill"></i> Question Bank
+        </a>
+        <a class="nav-link" asp-controller="Exam" asp-action="Index">
+            <i class="bi bi-calendar-check-fill"></i> Exam Schedules
+        </a>
+        <a class="nav-link" href="#">
+            <i class="bi bi-person-badge-fill"></i> Student Results
+        </a>
+
+<div class="mt-auto pt-5">
+    <form asp-controller="Account" asp-action="Logout" method="post">
+        <button type="submit" class="btn btn-primary w-100 btn-custom shadow border-0" style="background: var(--primary-blue)">
+            <i class="bi bi-box-arrow-left me-2"></i> LOG OUT
+        </button>
+    </form>
+</div>
+    </nav>
+</div>
+
+<div class="main-content">
+    <div class="d-flex justify-content-between align-items-center mb-5">
+        <div>
+            <h3 class="fw-bold mb-1">Admin Dashboard</h3>
+            <p class="text-muted small mb-0">Monitor and manage your academic assessment system</p>
+        </div>
+        <div class="text-end">
+            <span class="badge bg-white text-dark shadow-sm p-2 px-3 border" style="border-radius: 10px;">
+                <i class="bi bi-calendar3 me-2 text-primary"></i> April 2026
+            </span>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-6 col-xl-3">
+            <div class="card stat-card shadow-sm h-100">
+                <div class="card-body">
+                    <div class="icon-shape bg-gradient-primary shadow-primary">
+                        <i class="bi bi-book"></i>
+                    </div>
+                    <h6 class="text-muted small fw-bold text-uppercase">Courses</h6>
+                    <h4 class="fw-bold">Subjects</h4>
+                    <p class="text-muted x-small">Manage course codes and names.</p>
+                    <a asp-controller="Admin" asp-action="Courses" class="btn btn-outline-primary btn-sm btn-custom w-100 mt-2">Open Catalog</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-xl-3">
+            <div class="card stat-card shadow-sm h-100">
+                <div class="card-body">
+                    <div class="icon-shape bg-gradient-success shadow-success">
+                        <i class="bi bi-patch-question"></i>
+                    </div>
+                    <h6 class="text-muted small fw-bold text-uppercase">Bank</h6>
+                    <h4 class="fw-bold">Questions</h4>
+                    <p class="text-muted x-small">Store and categorize MCQs.</p>
+                    <div class="d-flex gap-2 mt-2">
+                        <a asp-controller="Question" asp-action="Create" class="btn btn-success btn-sm btn-custom flex-grow-1">Add</a>
+                        <a asp-controller="Question" asp-action="Index" class="btn btn-outline-success btn-sm btn-custom">Manage</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-xl-3">
+            <div class="card stat-card shadow-sm h-100">
+                <div class="card-body">
+                    <div class="icon-shape bg-gradient-danger shadow-danger">
+                        <i class="bi bi-calendar-event"></i>
+                    </div>
+                    <h6 class="text-muted small fw-bold text-uppercase">Schedules</h6>
+                    <h4 class="fw-bold">Exams</h4>
+                    <p class="text-muted x-small">Create papers and time slots.</p>
+                    <a asp-controller="Exam" asp-action="Index" class="btn btn-danger btn-sm btn-custom w-100 mt-2 border-0 shadow-sm">Setup Exams</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-xl-3">
+            <div class="card stat-card shadow-sm h-100">
+                <div class="card-body">
+                    <div class="icon-shape bg-gradient-info shadow-info">
+                        <i class="bi bi-graph-up-arrow"></i>
+                    </div>
+                    <h6 class="text-muted small fw-bold text-uppercase">Reporting</h6>
+                    <h4 class="fw-bold">Analytics</h4>
+                    <p class="text-muted x-small">Track student performance.</p>
+                    <button class="btn btn-info text-white btn-sm btn-custom w-100 mt-2 border-0">View Reports</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

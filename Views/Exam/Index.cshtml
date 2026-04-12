@@ -1,0 +1,214 @@
+@model IEnumerable<ExamMSAppMVC.Models.Entities.Exam>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exam Management - ExamMS</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
+    
+    <style>
+        :root {
+            --bg-color: #f4f7fe;
+            --sidebar-width: 260px;
+            --primary-blue: #4361ee;
+            --text-dark: #2d3748;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-dark);
+            margin: 0;
+            display: flex;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: #fff;
+            height: 100vh;
+            position: fixed;
+            border-right: 1px solid #e2e8f0;
+            padding: 20px;
+        }
+
+        .sidebar-brand {
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: var(--primary-blue);
+            margin-bottom: 30px;
+            display: block;
+            text-decoration: none;
+        }
+
+        .nav-link {
+            color: #718096;
+            padding: 12px 15px;
+            border-radius: 12px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .nav-link i { margin-right: 12px; font-size: 1.2rem; }
+        
+        .nav-link:hover, .nav-link.active {
+            background: #fff;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05);
+            color: var(--primary-blue);
+        }
+
+        /* Main Content */
+        .main-wrapper {
+            margin-left: var(--sidebar-width);
+            width: calc(100% - var(--sidebar-width));
+            padding: 40px;
+        }
+
+        .content-card {
+            background: white;
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 20px 27px 0 rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+
+        /* Table Styling */
+        .table thead th {
+            background-color: transparent;
+            border-bottom: 1px solid #f1f1f1;
+            color: #a0aec0;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 1.5rem;
+        }
+
+        .table tbody td {
+            padding: 1.2rem 1.5rem;
+            vertical-align: middle;
+            border-top: 1px solid #f1f1f1;
+        }
+
+        .exam-title {
+            font-weight: 700;
+            color: #2d3748;
+            display: block;
+        }
+
+        .duration-badge {
+            background: #f1f5f9;
+            color: #475569;
+            padding: 5px 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
+        .btn-manage {
+            background: var(--primary-blue);
+            color: white;
+            border-radius: 10px;
+            padding: 6px 15px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: none;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .btn-manage:hover {
+            background: #3651d1;
+            color: white;
+            box-shadow: 0 4px 10px rgba(67, 97, 238, 0.3);
+        }
+
+        .btn-logout {
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 10px;
+            width: 100%;
+            margin-top: 50px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <a href="#" class="sidebar-brand">School Management System</a>
+        <nav>
+            <a asp-controller="Admin" asp-action="Index" class="nav-link"><i class="bi bi-grid-fill"></i> Dashboard</a>
+            <a asp-controller="Admin" asp-action="Courses" class="nav-link"><i class="bi bi-person-badge-fill"></i> Courses</a>
+            <a asp-controller="Exam" asp-action="Index" class="nav-link active"><i class="bi bi-calendar-event-fill"></i> Exam</a>
+            
+            <button class="btn-logout shadow">LOG OUT</button>
+        </nav>
+    </div>
+
+    <div class="main-wrapper">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h4 class="fw-bold mb-0">Exam Schedules</h4>
+                <p class="text-muted small">Organize and manage upcoming assessment papers</p>
+            </div>
+            <a asp-action="Create" class="btn btn-primary px-4 shadow-sm" style="border-radius: 12px; background: #4361ee; border: none;">
+                <i class="bi bi-plus-lg me-2"></i> Create New Exam
+            </a>
+        </div>
+
+        <div class="card content-card">
+            <div class="card-body p-0">
+                <table class="table mb-0">
+                    <thead>
+                        <tr>
+                            <th class="ps-4">Exam Title</th>
+                            <th>Duration</th>
+                            <th>Scheduled Date</th>
+                            <th class="text-center">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="ps-4">
+                                    <span class="exam-title">@item.Title</span>
+                                </td>
+                                <td>
+                                    <span class="duration-badge"><i class="bi bi-stopwatch me-1"></i> @item.DurationInMinutes mins</span>
+                                </td>
+                                <td>
+                                    <span class="text-muted small fw-bold">@item.ScheduledDate.ToShortDateString()</span>
+                                </td>
+                                <td class="text-center">
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <a asp-action="ManageQuestions" asp-route-id="@item.Id" class="btn-manage">
+                                            Manage Questions
+                                        </a>
+                                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-warning" style="border-radius: 10px; padding: 5px 12px;">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

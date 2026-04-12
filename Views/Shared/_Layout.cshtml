@@ -1,0 +1,134 @@
+@* 1. THE CONFIGURATION BLOCK *@
+@{
+    // Edit this line once to change the logo across the entire portal
+    var logoPath = Url.Content("~/images/");
+    var appName = "EMS";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - @appName</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <style>
+        :root {
+            --logo-blue: #2B59FF;
+            --logo-green: #2ECC71;
+            --dark-navy: #0F172A;
+            --glass-bg: rgba(255, 255, 255, 0.85);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f1f5f9;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Dynamic Glass Navbar */
+        .navbar-custom {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            padding: 12px 0;
+        }
+
+        .navbar-brand img {
+            height: 50px;
+            width: auto;
+            transition: 0.3s;
+        }
+
+        .brand-name {
+            font-weight: 800;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, var(--logo-blue), var(--logo-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-left: 12px;
+        }
+
+        .nav-link {
+            color: var(--dark-navy) !important;
+            font-weight: 600;
+            margin: 0 10px;
+        }
+
+        .btn-portal {
+            background: linear-gradient(135deg, var(--logo-blue), var(--logo-green));
+            color: white !important;
+            border-radius: 50px;
+            padding: 8px 24px;
+            font-weight: 600;
+            border: none;
+            box-shadow: 0 4px 12px rgba(43, 89, 255, 0.2);
+        }
+
+        .footer-custom {
+            background: var(--dark-navy);
+            color: #94a3b8;
+            padding: 40px 0;
+            margin-top: auto;
+        }
+
+        .footer-logo {
+            height: 40px;
+            filter: brightness(0) invert(1); /* Makes the logo white for the dark footer */
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-custom sticky-top">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" asp-controller="Home" asp-action="Index">
+                    @* USING DYNAMIC LOGO *@
+                    <img src="@logoPath" alt="@appName Logo">
+                    <span class="brand-name">@appName</span>
+                </a>
+                
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navContent">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navContent">
+                    <ul class="navbar-nav ms-auto align-items-center">
+                        <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-controller="Account" asp-action="Login">Portal</a></li>
+                        <li class="nav-item ms-lg-3">
+                            <a asp-controller="Account" asp-action="Register" class="btn btn-portal">Get Started</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main role="main" class="container my-5">
+        @RenderBody()
+    </main>
+
+    <footer class="footer-custom">
+        <div class="container text-center">
+            @* USING DYNAMIC LOGO IN FOOTER *@
+            <img src="@logoPath" alt="Footer Logo" class="footer-logo mb-3">
+            <p class="mb-1">@appName Exam Management System</p>
+            <p class="small">&copy; 2026 | Built with Integrity by Huswatulhassanah</p>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

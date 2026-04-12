@@ -1,0 +1,179 @@
+﻿@model ExamMSAppMVC.Models.DTOs.Auth.LoginRequest
+
+@{
+    /* 1. DISABLING DEFAULT LAYOUT TO REMOVE DOUBLE HEADER */
+    Layout = null; 
+    ViewData["Title"] = "Login";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - EMS Portal</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <style>
+        /* 2. SHARED PORTAL DNA */
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(43, 89, 255, 0.7)), 
+                        url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 3. THE SINGLE CUSTOM HEADER */
+        .portal-navbar {
+            /* 60% Opacity Version */
+background: linear-gradient(135deg, rgba(43, 89, 255, 0.3), rgba(46, 204, 113, 0.3));
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 12px 0;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar-brand img {
+            height: 70px;
+            width: auto;
+            mix-blend-mode: multiply; 
+        }
+
+        .nav-home-btn {
+            color: white !important;
+            font-weight: 500;
+            text-decoration: none;
+            padding: 8px 18px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            transition: 0.3s;
+        }
+
+        .nav-home-btn:hover {
+            background: rgba(46, 204, 113, 0.2);
+            color: #2ECC71 !important;
+        }
+
+        /* 4. LOGIN CONTENT CENTERING */
+        .login-wrapper {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 80px; /* Space for fixed navbar */
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            padding: 45px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.4);
+            color: white;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @@keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-control {
+            background: rgba(255, 255, 255, 0.15) !important;
+            border: 1px solid rgba(255, 255, 255, 0.3) !important;
+            color: white !important;
+            border-radius: 15px;
+            padding: 14px 20px;
+        }
+
+        .btn-login {
+            background: linear-gradient(135deg, #2B59FF, #2ECC71);
+            border: none;
+            color: white;
+            padding: 15px;
+            border-radius: 15px;
+            font-weight: 700;
+            text-transform: uppercase;
+            box-shadow: 0 10px 30px rgba(46, 204, 113, 0.3);
+            transition: 0.3s;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(46, 204, 113, 0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="portal-navbar">
+        <div class="container d-flex justify-content-between align-items-center">
+            <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+                <img src="~/images/ems-logo.jpg" alt="EMS Logo">
+            </a>
+            <a class="nav-home-btn" asp-controller="Home" asp-action="Index">
+                <i class="fa fa-home me-1"></i> Home
+            </a>
+        </div>
+    </nav>
+
+    <div class="login-wrapper">
+        <div class="login-card">
+            <div class="text-center mb-4">
+                <img src="~/images/ems-logo.jpg" alt="EMS Logo" class="img-fluid mb-3" style="height: 80px; width: auto;">
+                <h2 class="fw-bold mb-1">Student Portal</h2>
+                <p class="small" style="color: rgba(255,255,255,0.7)">Integrity. Success. Excellence.</p>
+            </div>
+
+            <form asp-controller="Account" asp-action="Login" method="post">
+                @Html.AntiForgeryToken()
+                
+                <div class="mb-4">
+                    <label class="form-label small fw-bold text-uppercase">Registration Number</label>
+                    <input asp-for="RegistrationNumber" class="form-control" placeholder="ID Number" />
+                    <span asp-validation-for="RegistrationNumber" class="text-warning small"></span>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label small fw-bold text-uppercase">Password</label>
+                    <input asp-for="Password" type="password" class="form-control" placeholder="••••••••" />
+                    <span asp-validation-for="Password" class="text-warning small"></span>
+                </div>
+
+                <button type="submit" class="btn btn-login w-100 mb-4">Login to System</button>
+
+                <div class="text-center">
+                    <p class="small" style="color: rgba(255,255,255,0.6)">
+                        Need an account? 
+                        <a  asp-action="Register" class="text-white fw-bold text-decoration-none border-bottom">Register Now</a>
+                    </p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <partial name="_ValidationScriptsPartial" />
+</body>
+</html>
