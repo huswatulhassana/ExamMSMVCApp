@@ -13,25 +13,32 @@ namespace ExamMSAppMVC.Implementation.Services
         {
             _questionRepo = questionRepo;
         }
-        public async Task<BaseResponse<bool>> CreateQuestionAsync(QuestionRequest request)
+        public async Task<BaseResponse<bool>> CreateQuestionsAsync(List<QuestionRequest> requests)
+{
+    var questionsToSave = new List<Question>();
+    foreach (var request in requests)
+    {
+        var question = new Question
         {
-            // CHANGE THIS LINE from QuestionRequest to Question
-            var question = new Question
-            {
-                CourseId = request.CourseId,
-                Text = request.Text,
-                OptionA = request.OptionA,
-                OptionB = request.OptionB,
-                OptionC = request.OptionC,
-                OptionD = request.OptionD,
-                CorrectOption = request.CorrectOption,
-                Marks = request.Marks,
-                ExamId = null
-            };
-            await _questionRepo.AddAsync(question);
+            CourseId = request.CourseId,
+            Text = request.Text,
+            OptionA = request.OptionA,
+            OptionB = request.OptionB,
+            OptionC = request.OptionC,
+            OptionD = request.OptionD,
+            CorrectOption = request.CorrectOption,
+            Marks = request.Marks,
+            ExamId = null
+        };
+        
+        questionsToSave.Add(question);
+    }
+    await _questionRepo.AddRangeAsync(questionsToSave);
 
-            return new BaseResponse<bool> { Status = true, Message = "Question added to bank!" };
-        }
+    return new BaseResponse<bool> { Status = true, Message = $"{questionsToSave.Count} questions added to bank!" };
+}
+
+
 
         public async Task<BaseResponse<IEnumerable<Question>>> GetAllQuestionsAsync()
         {

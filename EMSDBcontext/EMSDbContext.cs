@@ -45,6 +45,8 @@ namespace ExamMSAppMVC.EMSDBcontext
                 .WithOne(s => s.User)
                 .HasForeignKey<Student>(s => s.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+                
         }
 
         private void SeedAdminData(ModelBuilder builder)

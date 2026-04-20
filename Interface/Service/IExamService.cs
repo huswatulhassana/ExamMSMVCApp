@@ -14,6 +14,7 @@ namespace ExamMSAppMVC.Interface.Service
         Task<IEnumerable<Exam>> GetExamsByCourseIdAsync(Guid courseId);
         Task<BaseResponse<Result>> CalculateAndSaveResultAsync(Guid examId, Guid studentId, Dictionary<Guid, string> answers);
         Task<BaseResponse<Result>> GetResultByIdAsync(Guid id);
+        Task<BaseResponse<IEnumerable<ResultDTO>>> GetAdminResultsAsync();
 
     }
 }

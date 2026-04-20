@@ -89,7 +89,7 @@ namespace ExamMSAppMVC.Implementation.Services
                 var newUser = new Models.User
                 {
                     Email = request.Email,
-                    HashPassword = request.Password, // Consider BCrypt in the future
+                    HashPassword = request.Password,
                     FirstName = request.FirstName,
                     LastName = request.LastName,
                     RoleId = role.Id,
@@ -98,7 +98,6 @@ namespace ExamMSAppMVC.Implementation.Services
                 };
 
                 await _context.Users.AddAsync(newUser);
-                // Save changes here so newUser.Id is generated for the Student link
                 await _context.SaveChangesAsync();
 
                 // AUTOMATICALLY CREATE STUDENT PROFILE

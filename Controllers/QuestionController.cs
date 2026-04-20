@@ -15,6 +15,7 @@ namespace ExamMSAppMVC.Controllers
 
         private readonly IQuestionService _questionService;
         private readonly ICourseService _courseService;
+
         public QuestionController(IQuestionService questionService, ICourseService courseService)
         {
             _questionService = questionService;
@@ -35,15 +36,43 @@ namespace ExamMSAppMVC.Controllers
             ViewBag.Courses = courses.Data;
             return View();
         }
-
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(QuestionRequest request)
-        {
-            var result = await _questionService.CreateQuestionAsync(request);
-            if (result.Status) return RedirectToAction("Index", "Admin");
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Create(List<QuestionRequest> requests)
+    {
+        if (requests == null || !requests.Any()) return View();
 
-            return View(request);
-        }
+        var result = await _questionService.CreateQuestionsAsync(requests);
+        
+        if (result.Status) return RedirectToAction(nameof(Index));
+
+        return View(requests);
     }
+                  
+       public async Task<IActionResult> Edit(Guid id)
+    {
+        var response = await _questionService.GetAllQuestionsAsync();
+
+        var question = response.Data.FirstOrDefault(q => q.Id == id);
+
+        if (question == null) return NotFound();
+        
+        return View(question);
+    }
+
+
+[HttpPost]
+[ValidateAntiForgeryToken]
+public async Task<IActionResult> Edit(Guid id, Question question)
+{
+    if (id != question.Id) return NotFound();
+    
+    if (ModelState.IsValid)
+    {
+        return RedirectToAction(nameof(Index));
+    }
+    return View(question);
 }
+}
+    }
+

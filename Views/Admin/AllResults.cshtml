@@ -1,0 +1,62 @@
+@model IEnumerable<ExamMSAppMVC.Models.DTOs.ResultDTO>
+
+@{
+    ViewData["Title"] = "All Student Results";
+}
+
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="text-primary">Exam Results Management</h2>
+            <a asp-controller="Admin" asp-action="Index" class="btn btn-outline-secondary btn-sm">
+                <i class="fas fa-arrow-left"></i> Back to Dashboard
+            </a>
+        </div>
+        
+        <button class="btn btn-success" onclick="window.print()">
+            <i class="fas fa-print"></i> Export to PDF/Print
+        </button>
+    </div>
+
+    <div class="card shadow">
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Registration No.</th>
+                        <th></th>
+                        <th>Exam Title</th>
+                        <th>Score (%)</th>
+                        <th>Date Taken</th>
+                        @* Status Column Removed *@
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var result in Model)
+                        {
+                            <tr>
+                                <td><strong>@result.RegistrationNumber</strong></td>
+                                <td>@result.StudentName</td>
+                                <td>@result.ExamTitle</td>
+                                <td>
+                                    <span class="badge @(result.Score >= 50 ? "bg-info" : "bg-secondary")">
+                                        @result.Score%
+                                    </span>
+                                </td>
+                                <td>@result.DateTaken.ToString("MMM dd, yyyy")</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="5" class="text-center text-muted">No results found in the database.</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -7,14 +7,11 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
 <style>
-    /* 1. CENTERING & BACKGROUND FIX */
     html, body {
         height: 100% !important;
         margin: 0;
         padding: 0;
     }
-
-    /* Hide Layout Nav/Footer */
     nav, footer, .navbar, .footer-custom {
         display: none !important;
     }
@@ -32,7 +29,6 @@
         font-family: 'Poppins', sans-serif;
     }
 
-    /* Ensure the container doesn't block flex centering */
     .container, main, .row {
         display: flex !important;
         justify-content: center !important;
@@ -40,7 +36,6 @@
         width: 100%;
     }
 
-    /* 2. PREMIUM GLASS CARD */
     .register-card {
         background: rgba(255, 255, 255, 0.95);
         backdrop-filter: blur(15px);
@@ -48,7 +43,7 @@
         border-radius: 24px;
         padding: 40px;
         width: 100%;
-        max-width: 500px; /* Slightly wider for registration */
+        max-width: 500px; 
         box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);
         border: 1px solid rgba(255, 255, 255, 0.4);
         animation: slideUp 0.6s ease-out;
@@ -66,7 +61,6 @@
         margin-bottom: 5px;
     }
 
-    /* 3. INPUT & PASSWORD WRAPPER STYLING */
     .form-control {
         border-radius: 12px;
         padding: 12px 15px;
@@ -136,7 +130,7 @@
         <div class="row">
             <div class="col-md-6 mb-3">
                 <label asp-for="RegistrationNumber" class="form-label fw-bold small text-secondary">Reg Number</label>
-                <input asp-for="RegistrationNumber" class="form-control" placeholder="2024/001" />
+                <input asp-for="RegistrationNumber" class="form-control" placeholder="EMS/2024/001" />
                 <span asp-validation-for="RegistrationNumber" class="text-danger small"></span>
             </div>
             <div class="col-md-6 mb-3">

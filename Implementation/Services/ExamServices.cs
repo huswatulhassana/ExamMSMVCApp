@@ -222,6 +222,37 @@ namespace ExamMSAppMVC.Implementation.Services
             };
         }
 
+       public async Task<BaseResponse<IEnumerable<ResultDTO>>> GetAdminResultsAsync()
+        {
+            // 1. Get raw data from Repository (Eager Loading)
+            var results = await _resultRepo.GetAllResultsWithDetailsAsync();
+
+            if (results == null || !results.Any())
+            {
+                return new BaseResponse<IEnumerable<ResultDTO>> 
+                { 
+                    Status = true, 
+                    Message = "No results found.", 
+                    Data = new List<ResultDTO>() 
+                };
+            }
+
+            var resultDtos = results.Select(r => new ResultDTO
+            {
+                RegistrationNumber = r.Student?.RegistrationNumber ?? "N/A",
+                // StudentName = r.Student != null ? $"{r.Student.FirstName} {r.Student.LastName}" : "Unknown",
+                ExamTitle = r.Exam?.Title ?? "Deleted Exam",
+                Score = r.TotalScore,
+                DateTaken = r.DateCreated 
+            }).ToList();
+
+            return new BaseResponse<IEnumerable<ResultDTO>>
+            {
+                Status = true,
+                Message = "Results loaded successfully",
+                Data = resultDtos
+            };
+        }
     }
 }
 

@@ -12,7 +12,7 @@ namespace ExamMSAppMVC.Implementation.Services
 
         public async Task<BaseResponse<bool>> CreateCourseAsync(CourseRequest request)
         {
-            // 1. Check if course code already exists
+            // 1. Check if course code already ex
             var existingCourse = await _courseRepository.GetByCodeAsync(request.CourseCode);
             if (existingCourse != null)
             {

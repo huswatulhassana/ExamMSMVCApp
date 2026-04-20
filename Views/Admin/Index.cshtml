@@ -111,9 +111,10 @@
         <a class="nav-link" asp-controller="Exam" asp-action="Index">
             <i class="bi bi-calendar-check-fill"></i> Exam Schedules
         </a>
-        <a class="nav-link" href="#">
+            <a class="nav-link" asp-controller="Admin" asp-action="AllResults">
             <i class="bi bi-person-badge-fill"></i> Student Results
-        </a>
+            </a>
+        
 
 <div class="mt-auto pt-5">
     <form asp-controller="Account" asp-action="Logout" method="post">
@@ -193,7 +194,7 @@
                     <h6 class="text-muted small fw-bold text-uppercase">Reporting</h6>
                     <h4 class="fw-bold">Analytics</h4>
                     <p class="text-muted x-small">Track student performance.</p>
-                    <button class="btn btn-info text-white btn-sm btn-custom w-100 mt-2 border-0">View Reports</button>
+                    <a asp-controller="Admin" asp-action="AllResults" class="btn btn-info text-white btn-sm btn-custom w-100 mt-2 border-0">View Reports</a>
                 </div>
             </div>
         </div>

@@ -5,7 +5,7 @@ namespace ExamMSAppMVC.Interface.Service
 {
     public interface IQuestionService
     {
-        public Task<BaseResponse<bool>> CreateQuestionAsync(QuestionRequest question);
+        Task<BaseResponse<bool>> CreateQuestionsAsync(List<QuestionRequest> requests);
         Task<BaseResponse<IEnumerable<Question>>> GetAllQuestionsAsync();
     }
 }

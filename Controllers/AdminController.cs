@@ -6,8 +6,9 @@ using ExamMSAppMVC.Models.DTOs;
 
 namespace ExamMSAppMVC.Controllers
 {
+
     [Authorize(Roles = "Admin")]
-    public class AdminController(IUserService userService, ICourseService courseService) : Controller
+    public class AdminController(IUserService userService, ICourseService courseService, IExamService examService) : Controller
     {
 
         public IActionResult Index()
@@ -73,5 +74,16 @@ namespace ExamMSAppMVC.Controllers
             var result = await courseService.DeleteCourseAsync(id);
             return RedirectToAction(nameof(Courses));
         }
+        public async Task<IActionResult> AllResults()
+{
+    var response = await examService.GetAdminResultsAsync();
+
+    if (response == null || response.Data == null)
+    {
+        return View(new List<ResultDTO>()); 
+    }
+
+    return View(response.Data); 
+}
     }
 }
