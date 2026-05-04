@@ -8,7 +8,7 @@ namespace ExamMSAppMVC.Controllers
 {
 
     [Authorize(Roles = "Admin")]
-    public class AdminController(IUserService userService, ICourseService courseService, IExamService examService) : Controller
+    public class AdminController(ICourseService courseService, IExamService examService) : Controller
     {
 
         public IActionResult Index()

@@ -8,8 +8,9 @@ namespace ExamMSAppMVC.Models.Entities
 {
     public class Course : BaseEntity
     {
-        public string Name { get; set; }
-        public string CourseCode { get; set; }
+        public required string Name { get; set; }
+        public required string CourseCode { get; set; }
         public ICollection<Exam> Exams { get; set; } = new List<Exam>();
     }
+
 }

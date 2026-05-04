@@ -20,17 +20,17 @@ namespace ExamMSAppMVC.Implementation.Repositories
             _EMSDbContext = emsDbContext;
         }
 
-        public async Task<User?> GetByEmailAsync(string email)
+        public async Task<User> GetByEmailAsync(string email)
         {
             return await _EMSDbContext.Users
-                .FirstOrDefaultAsync(u => u.Email.ToLower() == email.ToLower());
+                .FirstAsync(u => u.Email.ToLower() == email.ToLower());
         }
 
-        public async Task<User?> GetUserByRegistrationNumberAsync(string registrationNumber)
+        public async Task<User> GetUserByRegistrationNumberAsync(string registrationNumber)
         {
             return await _EMSDbContext.Users
                 .Include(u => u.Role)
-                .FirstOrDefaultAsync(u => u.RegistrationNumber == registrationNumber);
+                .FirstAsync(u => u.RegistrationNumber == registrationNumber);
         }
 
         public async Task<User?> GetUserByPasswordAsync(string password)
@@ -39,7 +39,7 @@ namespace ExamMSAppMVC.Implementation.Repositories
                 .FirstOrDefaultAsync(u => u.HashPassword == password);
         }
 
-        public async Task<User> DeleteAsync(User user)
+        public new async Task<User> DeleteAsync(User user)
         {
             _EMSDbContext.Users.Remove(user);
             await _EMSDbContext.SaveChangesAsync();

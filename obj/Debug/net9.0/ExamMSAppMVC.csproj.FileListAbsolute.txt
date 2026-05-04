@@ -5,8 +5,6 @@ C:\Users\huswa\Desktop\ExamMSAppMVC\ExamMSAppMVC\bin\Debug\net9.0\FluentValidati
 C:\Users\huswa\Desktop\ExamMSAppMVC\ExamMSAppMVC\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.dll
 C:\Users\huswa\Desktop\ExamMSAppMVC\ExamMSAppMVC\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Relational.dll
 C:\Users\huswa\Desktop\ExamMSAppMVC\ExamMSAppMVC\bin\Debug\net9.0\Microsoft.EntityFrameworkCore.Abstractions.dll
-C:\Users\huswa\Desktop\ExamMSAppMVC\ExamMSAppMVC\bin\Debug\net9.0\MySqlConnector.dll
-C:\Users\huswa\Desktop\ExamMSAppMVC\ExamMSAppMVC\bin\Debug\net9.0\Pomelo.EntityFrameworkCore.MySql.dll
 C:\Users\huswa\Desktop\ExamMSAppMVC\ExamMSAppMVC\bin\Debug\net9.0\appsettings.Development.json
 C:\Users\huswa\Desktop\ExamMSAppMVC\ExamMSAppMVC\bin\Debug\net9.0\appsettings.json
 C:\Users\huswa\Desktop\ExamMSAppMVC\ExamMSAppMVC\bin\Debug\net9.0\ExamMSAppMVC.staticwebassets.runtime.json
@@ -197,3 +195,6 @@ C:\Users\huswa\Desktop\ExamMSAppMVC\ExamMSAppMVC\bin\Debug\net9.0\ExamMSAppMVC.r
 C:\Users\huswa\Desktop\ExamMSAppMVC\ExamMSAppMVC\bin\Debug\net9.0\ExamMSAppMVC.pdb
 C:\Users\huswa\Desktop\ExamMSAppMVC\ExamMSAppMVC\obj\Debug\net9.0\ExamMSAppMVC.genruntimeconfig.cache
 C:\Users\huswa\Desktop\ExamMSAppMVC\ExamMSAppMVC\obj\Debug\net9.0\ref\ExamMSAppMVC.dll
+C:\Users\huswa\Desktop\ExamMSAppMVC\ExamMSAppMVC\obj\Debug\net9.0\ExamMSAppMVC.sourcelink.json
+C:\Users\huswa\Desktop\ExamMSAppMVC\ExamMSAppMVC\bin\Debug\net9.0\Npgsql.dll
+C:\Users\huswa\Desktop\ExamMSAppMVC\ExamMSAppMVC\bin\Debug\net9.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll

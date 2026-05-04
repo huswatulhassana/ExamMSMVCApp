@@ -10,14 +10,16 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // 1. DATABASE CONFIGURATION
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-if (string.IsNullOrEmpty(connectionString))
-{
-    throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-}
+// var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+// if (string.IsNullOrEmpty(connectionString))
+// {
+//     throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+// }
 
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<EMSDbContext>(options =>
-    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+    options.UseNpgsql(connectionString));
+
 
 // 2. AUTHENTICATION & SESSION CONFIGURATION
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

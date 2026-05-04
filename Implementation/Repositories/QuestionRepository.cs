@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace ExamMSAppMVC.Implementation.Repositories
 {       public class QuestionRepository : BaseRepository<Question>, IQuestionRepo
 {
-    private readonly EMSDbContext _context; 
+    private new readonly EMSDbContext _context; 
     public QuestionRepository(EMSDbContext context) : base(context) 
     { 
         _context = context;

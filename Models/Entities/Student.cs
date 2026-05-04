@@ -10,7 +10,7 @@ namespace ExamMSAppMVC.Models.Entities
         [ForeignKey("UserId")]
         public User User { get; set; } = null!;
 
-        public string RegistrationNumber { get; set; } = string.Empty;
+        public required string RegistrationNumber { get; set; }
         public ICollection<Result> Results { get; set; } = new List<Result>();
     }
 }

@@ -18,10 +18,10 @@ namespace ExamMSAppMVC.Implementation.Repositories
         {
             _EMSDbContext = emsDbContext;
         }
-        public async Task<Role?> GetByNameAsync(string name)
+        public async Task<Role> GetByNameAsync(string name)
         {
             return await _EMSDbContext.Roles
-                .FirstOrDefaultAsync(r => r.Name.ToLower() == name.ToLower());
+                .FirstAsync(r => r.Name.ToLower() == name.ToLower());
         }
     }
 }
