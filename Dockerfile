@@ -12,17 +12,13 @@ EXPOSE 8080
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
 
-# COPY ["ExamMSAppMVC/ExamMSAppMVC.csproj", "ExamMSAppMVC/"]
-# RUN dotnet restore "ExamMSAppMVC/ExamMSAppMVC.csproj"
-
-# Copy EVERYTHING from this subfolder
+# Copy everything directly into /src
 COPY . .
-WORKDIR "/src/ExamMSAppMVC"
 
-# Restore dependencies
-# RUN dotnet restore
+# Restore dependencies right here where the csproj file lives
+RUN dotnet restore "ExamMSAppMVC.csproj"
 
-# Direct paths since we are already inside the project folder
+# Build the project cleanly in the current directory
 RUN dotnet build "ExamMSAppMVC.csproj" -c Release -o /app/build
 
 # ----------------------
