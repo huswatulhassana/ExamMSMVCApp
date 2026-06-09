@@ -7,6 +7,8 @@ using ExamMSAppMVC.Models.Entities;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // 1. DATABASE CONFIGURATION
@@ -63,6 +65,21 @@ builder.Services.AddScoped<ICourseService, CourseService>();
 builder.Services.AddScoped<IExamService, ExamService>();
 
 var app = builder.Build();
+// --- AUTOMATIC DATABASE MIGRATION ON STARTUP ---
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var context = services.GetRequiredService<EMSDbContext>();
+        context.Database.Migrate();
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred while migrating the database.");
+    }
+}
 
 // 6. MIDDLEWARE PIPELINE
 if (!app.Environment.IsDevelopment())
