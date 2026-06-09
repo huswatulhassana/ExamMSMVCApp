@@ -12,8 +12,8 @@ EXPOSE 8080
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
 
-COPY ["ExamMSAppMVC/ExamMSAppMVC.csproj", "ExamMSAppMVC/"]
-RUN dotnet restore "ExamMSAppMVC/ExamMSAppMVC.csproj"
+# COPY ["ExamMSAppMVC/ExamMSAppMVC.csproj", "ExamMSAppMVC/"]
+# RUN dotnet restore "ExamMSAppMVC/ExamMSAppMVC.csproj"
 
 # Copy EVERYTHING from this subfolder
 COPY . .
