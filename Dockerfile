@@ -12,20 +12,24 @@ EXPOSE 8080
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
 
-# Copy EVERYTHING from where the Dockerfile is located
+COPY ["ExamMSAppMVC/ExamMSAppMVC.csproj", "ExamMSAppMVC/"]
+RUN dotnet restore "ExamMSAppMVC/ExamMSAppMVC.csproj"
+
+# Copy EVERYTHING from this subfolder
 COPY . .
+WORKDIR "/src/ExamMSAppMVC"
 
-# Restore dependencies automatically without specifying a folder path
-RUN dotnet restore
+# Restore dependencies
+# RUN dotnet restore
 
-# Build using a wildcard search to find your .csproj file automatically
-RUN dotnet build **/*.csproj -c Release -o /app/build
+# Direct paths since we are already inside the project folder
+RUN dotnet build "ExamMSAppMVC.csproj" -c Release -o /app/build
 
 # ----------------------
 # Publish stage
 # ----------------------
 FROM build AS publish
-RUN dotnet publish **/*.csproj -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "ExamMSAppMVC.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 # ----------------------
 # Final image
@@ -34,5 +38,4 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 
-# ENTRYPOINT points to the compiled application DLL
 ENTRYPOINT ["dotnet", "ExamMSAppMVC.dll"]
