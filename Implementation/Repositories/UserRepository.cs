@@ -20,17 +20,19 @@ namespace ExamMSAppMVC.Implementation.Repositories
             _EMSDbContext = emsDbContext;
         }
 
-        public async Task<User> GetByEmailAsync(string email)
+        // Changed to FirstOrDefaultAsync so it returns null safely if email doesn't exist yet
+        public async Task<User?> GetByEmailAsync(string email)
         {
             return await _EMSDbContext.Users
-                .FirstAsync(u => u.Email.ToLower() == email.ToLower());
+                .FirstOrDefaultAsync(u => u.Email.ToLower() == email.ToLower());
         }
 
-        public async Task<User> GetUserByRegistrationNumberAsync(string registrationNumber)
+        // Changed to FirstOrDefaultAsync to prevent login crashes for non-existent registration numbers
+        public async Task<User?> GetUserByRegistrationNumberAsync(string registrationNumber)
         {
             return await _EMSDbContext.Users
                 .Include(u => u.Role)
-                .FirstAsync(u => u.RegistrationNumber == registrationNumber);
+                .FirstOrDefaultAsync(u => u.RegistrationNumber == registrationNumber);
         }
 
         public async Task<User?> GetUserByPasswordAsync(string password)
@@ -47,4 +49,3 @@ namespace ExamMSAppMVC.Implementation.Repositories
         }
     }
 }
-
